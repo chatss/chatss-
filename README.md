@@ -61,6 +61,43 @@ react-scroll-to-bottom : 스크롤 라이브러리
 react-emoji : 채팅시 이모지 사용을 위해 설치
 query-string : 서버연동을 위해 설치
 
-> client : add chat.js join.js
+---
 
-로그인 화면과 채팅 화면을 위한 컴포넌트와 파일 구성을 했습니다.
+**client : add join.js**
+
+로그인 화면 : useState 를 사용해 두 개의 state를 선언해 주었습니다.
+
+    1. name : 채팅에 참여할 이름
+    2. room : 채팅방
+
+onChange 이벤트를 통해 입력한 이름과 방 정보를 setName,setRoom을 통해 state 세팅해주었습니다.
+
+    onChange={
+        (event)=>{
+            setName(event.target.value)
+        }
+    }
+
+---
+
+**client : add Chat.js**
+
+queryString 을 이용해 채팅방에 데이타를 전달해줍니다.
+
+const data = queryString.parse(location.search)
+
+    location.search = Join 컴포넌트에 전달한 경로
+    /chat/?name=${name}&room=${room}
+    에서 ? 이후의 값
+
+    data = {
+        name : 입력한 이름,
+        room : 입력한 룸
+    }
+
+이를 비구조화 할당을 통해 보기 쉽게 가시화 해주었습니다.
+
+    const {name, room} = queryString.parse(location.search);
+
+    console.log(name,room);
+    // 입력한 이름 입력한 방
